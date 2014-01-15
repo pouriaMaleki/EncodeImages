@@ -1,4 +1,4 @@
-function lrec = predictive_decoding(lout, 'param')
+function lrec = predictive_decoding(lout, param)
 
 
 
