@@ -10,7 +10,7 @@ function symbols = lossless_decoding(codewords, type, data)
 
 			symbols = [];
 
-			disp('other');
+			disp('Err: bad type of lossless decoding selected!');
 
 	end
 
