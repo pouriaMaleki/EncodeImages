@@ -1,10 +1,19 @@
 function m = demo(imageNum, predictive)
 
-	[image, information] = read_image(imageNum);
+	% image = [10 20 10 20; 40 50 10 20; 40 30 50 30];
+
+	% BitDepth = 8;
+
+	%%%
+
+	[image, Information] = read_image(imageNum);
+
+	BitDepth = Information.BitDepth;
 
 	disp(strcat('entropy of source image is:', num2str(eventropy(image))));
-	disp(strcat('size of source image is:', num2str(information.FileSize * 8), 'bit'));
-	disp(strcat('bitrate of source image is:', num2str(information.BitDepth), 'bit'));
+	disp(strcat('size of source image is:', num2str(size(image, 1) * size(image, 2) * BitDepth), 'bit'));
+	disp(strcat('bitrate of source image is:', num2str(BitDepth), 'bit'));
+
 	% %%%%%% %
 	% Encode %
 	% %%%%%% %
@@ -26,22 +35,22 @@ function m = demo(imageNum, predictive)
 	% Decode %
 	% %%%%%% %
 
-	% imageDecodedZigzag = lossless_decoding(predImageZigzagCoded, 'huffman', predImageZigzagCodedTable);
+	imageDecodedZigzag = lossless_decoding(predImageZigzagCoded, 'huffman', predImageZigzagCodedTable);
 
-	% imageDecoded = zigzag_writing(imageDecodedZigzag, information.Height, information.Width);
+	imageDecoded = zigzag_writing(imageDecodedZigzag, size(image, 1), size(image, 2));
 
-	% sourceImage = predictive_decoding(imageDecoded, predictive);
+	sourceImage = predictive_decoding(imageDecoded, predictive);
 
-	% Idiff=Imabsdiff(image,sourceImage);
+	Idiff = imabsdiff(image,sourceImage);
 
-	% if Idiff == 0
+	if Idiff == 0
 
-	% 	disp('Idiff is zero!');
+		disp('Idiff is zero!');
 
-	% subplot(2,1,1), imshow(image);
-	% title('Original Image', 'FontSize', 7);
+	subplot(2,1,1), imshow(image);
+	title('Original Image', 'FontSize', 7);
 
-	% subplot(2,1,2), imshow(sourceImage);
-	% title('Encoded/Decoded Image', 'FontSize', 7);
+	subplot(2,1,2), imshow(Idiff);
+	title('Idiff Value', 'FontSize', 7);
 
 end
