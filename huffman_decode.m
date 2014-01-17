@@ -33,6 +33,17 @@ function decoded = huffman_decode(codewords, dictionary)
 
     end
 
+    isSigNonNumeric = max(cellfun('isclass', {dictionary{:,1}}, 'char') );
+
+    if ( ~isSigNonNumeric )
+        decoMat = zeros(size(decoded));
+        decoMat = feval(class(dictionary{1,1}), decoMat);  % to support single precision
+        for i = 1 : length(decoMat)
+            decoMat(i) = decoded{i};
+        end
+        decoded = decoMat;
+    end
+
 function found_code = isValidCode(code, dictionary)
 
     found_code = [];
