@@ -2,43 +2,145 @@ function lenc = predictive_encoding(lin, param)
 
 	[row, col] = size(lin);
 
+	lenc = zeros(row, col);
+
 	switch param
 
 		case 'P1'
 
-			lenc = lin([1:2:row],[1:2:col]);
+			for i = 1:col
+
+				if i == 1
+
+					lenc(:, i) = lin(:, i);
+
+				else
+
+					lenc(:,i) = lin(:,i) - lin(:,i - 1);
+
+				end
+
+			end
 
 		case 'P2'
 
-			[row, col] = size(lin);
+			for i = 1:row
 
-			lenc = lin([2:2:row],[2:2:col]);
+				if i == 1
+
+					lenc(i, :) = lin(i, :);
+
+				else
+
+					lenc(i, :) = lin(i, :) - lin(i - 1, :);
+
+				end
+
+			end
 
 		case 'P3'
 
-			[row, col] = size(lin);
+			for i = 1:row
 
-			lenc = lin([2:2:row],[1:2:col]);
+				for j = 1: col
+
+					if i == 1 || j == 1
+
+						lenc(i, j) = lin(i, j);
+
+					else
+
+						lenc(i, j) = lin(i, j) - lin(i - 1, j - 1);
+
+					end
+
+				end
+
+			end
 
 		case 'P4'
 
-			lenc = predictive_encoding(lin, 'P1') + predictive_encoding(lin, 'P2') - predictive_encoding(lin, 'P3');
+			for i = 1:row
+
+				for j = 1: col
+
+					if i == 1 || j == 1
+
+						lenc(i, j) = lin(i, j);
+
+					else
+
+						lenc(i, j) = lin(i - 1, j - 1) + lin(i - 1, j) - lin(i, j - 1);
+
+					end
+
+				end
+
+			end
 
 		case 'P5'
 
-			lenc = predictive_encoding(lin, 'P1') + (predictive_encoding(lin, 'P2') - predictive_encoding(lin, 'P3')) / 2;
+			for i = 1:row
+
+				for j = 1: col
+
+					if i == 1 || j == 1
+
+						lenc(i, j) = lin(i, j);
+
+					else
+
+						lenc(i, j) = (lin(i - 1, j - 1) + (lin(i - 1, j) - lin(i, j - 1))) / 2;
+
+					end
+
+				end
+
+			end
 
 		case 'P6'
 
-			lenc = predictive_encoding(lin, 'P2') + (predictive_encoding(lin, 'P1') - predictive_encoding(lin, 'P3')) / 2;
+			for i = 1:row
+
+				for j = 1: col
+
+					if i == 1 || j == 1
+
+						lenc(i, j) = lin(i, j);
+
+					else
+
+						lenc(i, j) = (lin(i - 1, j) + (lin(i - 1, j - 1) - lin(i, j - 1))) / 2;
+
+					end
+
+				end
+
+			end
 
 		case 'P7'
 
-			lenc = (predictive_encoding(lin, 'P1') + predictive_encoding(lin, 'P2')) / 2;
+			for i = 1:row
+
+				for j = 1: col
+
+					if i == 1 || j == 1
+
+						lenc(i, j) = lin(i, j);
+
+					else
+
+						lenc(i, j) = (lin(i - 1, j - 1) + lin(i - 1, j))/2;
+
+					end
+
+				end
+
+			end
 
 		otherwise
 
-			error('bad param entered!');
+			error('Bad input for Predictive Scheme entered, enter P1 to P7');
 
 	end
 

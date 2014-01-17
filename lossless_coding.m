@@ -1,4 +1,4 @@
-function [codewords, data] = lossless_coding(symbol, type)
+function [codewords, data, bitrate] = lossless_coding(symbol, type)
 
 	switch type
 
@@ -10,15 +10,13 @@ function [codewords, data] = lossless_coding(symbol, type)
 
 			[data, length] = huffmandict(uniqueSymbols,p);
 
+			bitrate = length;
+
 			codewords = huffmanenco(symbol,data);
 
 		otherwise
 
-			codewords = [];
-			data = [];
-			length = 0;
-
-			disp('Err: bad type of lossless coding selected!');
+			error('bad type of lossless coding selected! select: huffman');
 
 	end
 
