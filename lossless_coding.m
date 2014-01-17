@@ -4,15 +4,7 @@ function [codewords, data, bitrate] = lossless_coding(symbol, type)
 
 		case 'huffman'
 
-			uniqueSymbols = unique(symbol);
-
-			p = histc(symbol, uniqueSymbols) / numel(symbol);
-
-			[data, length] = huffmandict(uniqueSymbols,p);
-
-			bitrate = length;
-
-			codewords = huffmanenco(symbol,data);
+			[codewords, data, bitrate] = huffman(symbol);
 
 		otherwise
 

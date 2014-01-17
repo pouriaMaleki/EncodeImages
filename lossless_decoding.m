@@ -4,7 +4,7 @@ function symbols = lossless_decoding(codewords, type, data)
 
 		case 'huffman'
 
-			symbols = huffmandeco(codewords,data);
+			symbols = huffman_decode(codewords,data);
 
 		otherwise
 
