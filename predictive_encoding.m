@@ -64,13 +64,17 @@ function lenc = predictive_encoding(lin, param)
 
 				for j = 1: col
 
-					if i == 1 || j == 1
+					if i == 1
 
 						lenc(i, j) = lin(i, j);
 
-					else
+                    elseif j == 1
 
-						lenc(i, j) = lin(i - 1, j - 1) + lin(i - 1, j) - lin(i, j - 1);
+                        lenc(i, j) = lin(i, col) + lin(i - 1, j) - lin(i - 1, col);
+
+                    else
+
+						lenc(i, j) = lin(i, j - 1) + lin(i - 1, j) - lin(i - 1, j - 1);
 
 					end
 
@@ -84,13 +88,17 @@ function lenc = predictive_encoding(lin, param)
 
 				for j = 1: col
 
-					if i == 1 || j == 1
+					if i == 1
 
 						lenc(i, j) = lin(i, j);
 
+                    elseif j == 1
+
+                        lenc(i, j) = lin(i, col) + (lin(i - 1, j) - lin(i - 1, col)) / 2;
+
 					else
 
-						lenc(i, j) = (lin(i - 1, j - 1) + (lin(i - 1, j) - lin(i, j - 1))) / 2;
+						lenc(i, j) = lin(i, j - 1) + (lin(i - 1, j) - lin(i - 1, j - 1)) / 2;
 
 					end
 
@@ -104,13 +112,17 @@ function lenc = predictive_encoding(lin, param)
 
 				for j = 1: col
 
-					if i == 1 || j == 1
+					if i == 1
 
 						lenc(i, j) = lin(i, j);
 
+                    elseif j == 1
+
+                        lenc(i, j) = lin(i - 1, j) + (lin(i, col) - lin(i - 1, col)) / 2;
+
 					else
 
-						lenc(i, j) = (lin(i - 1, j) + (lin(i - 1, j - 1) - lin(i, j - 1))) / 2;
+						lenc(i, j) = lin(i - 1, j) + (lin(i, j - 1) - lin(i - 1, j - 1)) / 2;
 
 					end
 
@@ -124,13 +136,17 @@ function lenc = predictive_encoding(lin, param)
 
 				for j = 1: col
 
-					if i == 1 || j == 1
+					if i == 1
 
 						lenc(i, j) = lin(i, j);
 
-					else
+                    elseif j == 1
 
-						lenc(i, j) = (lin(i - 1, j - 1) + lin(i - 1, j))/2;
+                        lenc(i, j) = (lin(i, col) + lin(i - 1, j)) / 2;
+
+                    else
+
+						lenc(i, j) = (lin(i, j - 1) + lin(i - 1, j)) / 2;
 
 					end
 
