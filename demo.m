@@ -1,10 +1,7 @@
+% imageNum = 1, 2, 3, 4, 5, 6
+% predictive = 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7'
+
 function m = demo(imageNum, predictive)
-
-	% image = [10 20 10 20; 40 50 10 20; 40 30 50 30];
-
-	% BitDepth = 8;
-
-	%%%
 
 	[image, Information] = read_image(imageNum);
 
@@ -50,7 +47,10 @@ function m = demo(imageNum, predictive)
 	subplot(2,1,1), imshow(image);
 	title('Original Image', 'FontSize', 7);
 
-	subplot(2,1,2), imshow(Idiff);
-	title('Idiff Value', 'FontSize', 7);
+	subplot(2,1,2), imshow(predImage);
+	title('After Predictive Encoding', 'FontSize', 7);
+
+	%subplot(2,1,2), imshow(Idiff);
+	%title('Idiff Value', 'FontSize', 7);
 
 end

@@ -64,17 +64,13 @@ function lrec = predictive_decoding(lout, param)
 
 				for j = 1: col
 
-					if i == 1
+					if i == 1 || j == 1
 
 						lrec(i, j) = lout(i, j);
 
-                    elseif j == col
-                        
-                        lrec(i, j) = lout(i, 1) + lrec(i - 1, j) - lrec(i - 1, 1);
-                        
                     else
 
-						lrec(i, j) = lout(i, j + 1) + lrec(i - 1, j) - lrec(i - 1, j + 1);
+						lrec(i, j) = lout(i, j) + (lrec(i, j - 1) + lrec(i - 1, j) - lrec(i - 1, j - 1));
 
 					end
 
@@ -88,17 +84,12 @@ function lrec = predictive_decoding(lout, param)
 
 				for j = 1: col
 
-					if i == 1
+					if i == 1 || j == 1
 
 						lrec(i, j) = lout(i, j);
-
-                    elseif j == col
-
-                        lrec(i, j) = lout(i, 1) + (lrec(i - 1, j) - lrec(i - 1, 1)) / 2;
-
 					else
 
-						lrec(i, j) = lout(i, j + 1) + (lrec(i - 1, j) - lrec(i - 1, j + 1)) / 2;
+						lrec(i, j) = lout(i, j) + (lrec(i, j - 1) + (lrec(i - 1, j) - lrec(i - 1, j - 1)) / 2);
 
 					end
 
@@ -112,17 +103,13 @@ function lrec = predictive_decoding(lout, param)
 
 				for j = 1: col
 
-					if i == 1
+					if i == 1 || j == 1
 
 						lrec(i, j) = lout(i, j);
 
-                    elseif j == col
-
-                        lrec(i, j) = 2 * (lout(i, 1) - lrec(i - 1, 1)) + lrec(i - 1, j);
-
 					else
 
-						lrec(i, j) = 2 * (lout(i, j + 1) - lrec(i - 1, j + 1)) + lrec(i - 1, j);
+						lrec(i, j) = lout(i, j) + (lrec(i - 1, j) + (lrec(i, j - 1) - lrec(i - 1, j - 1)) / 2);
 
 					end
 
@@ -136,17 +123,13 @@ function lrec = predictive_decoding(lout, param)
 
 				for j = 1: col
 
-					if i == 1
+					if i == 1 || j == 1
 
 						lrec(i, j) = lout(i, j);
 
-                    elseif j == col
-
-                        lrec(i, j) = 2 * lout(i, 1) - lrec(i - 1, 1);
-
                     else
 
-						lrec(i, j) = 2 * lout(i, j + 1) - lrec(i - 1, j + 1);
+						lrec(i, j) = lout(i, j) + ((lrec(i, j - 1) + lrec(i - 1, j)) / 2);
 
 					end
 
